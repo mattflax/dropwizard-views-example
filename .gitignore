@@ -1,0 +1,4 @@
+# Ignore build target
+/target
+
+dependency-reduced-pom.xml
