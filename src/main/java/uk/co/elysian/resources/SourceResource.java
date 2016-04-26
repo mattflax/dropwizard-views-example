@@ -13,15 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.elysian;
+package uk.co.elysian.resources;
 
-import uk.co.elysian.config.MultiLocationViewConfiguration;
+import uk.co.elysian.view.SourceView;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 
 /**
- * Configuration class for DropWizard views example app.
- *
- * Created by mlp on 07/04/16.
+ * Created by mlp on 26/04/16.
  */
-public class DropwizardViewsConfiguration extends MultiLocationViewConfiguration {
+@Path("/source")
+public class SourceResource {
+
+	@GET
+	public SourceView handleGet(@QueryParam("path") String path) {
+		return new SourceView(path);
+	}
 
 }

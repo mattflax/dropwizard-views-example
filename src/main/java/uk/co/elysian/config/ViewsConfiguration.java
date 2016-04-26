@@ -17,6 +17,7 @@ package uk.co.elysian.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class ViewsConfiguration {
 	private Map<String, Map<String, String>> renderers = new HashMap<>();
 
 	@JsonProperty("templatePaths")
-	private List<String> templatePaths;
+	private List<String> templatePaths = new ArrayList<>();
 
 
 	public Map<String, Map<String, String>> getRenderers() {

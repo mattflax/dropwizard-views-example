@@ -13,15 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.elysian;
+package uk.co.elysian.config;
 
-import uk.co.elysian.config.MultiLocationViewConfiguration;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.dropwizard.Configuration;
 
 /**
- * Configuration class for DropWizard views example app.
+ * Configuration class with views configuration included.
  *
- * Created by mlp on 07/04/16.
+ * Created by mlp on 26/04/16.
  */
-public class DropwizardViewsConfiguration extends MultiLocationViewConfiguration {
+public class MultiLocationViewConfiguration extends Configuration {
+
+	@JsonProperty("views")
+	public ViewsConfiguration views = new ViewsConfiguration();
+
+	public ViewsConfiguration getViews() {
+		return views;
+	}
+
+	public void setViews(ViewsConfiguration views) {
+		this.views = views;
+	}
+
 
 }

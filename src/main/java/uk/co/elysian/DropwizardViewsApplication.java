@@ -21,6 +21,8 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import uk.co.elysian.health.DummyHealthCheck;
 import uk.co.elysian.resources.IndexResource;
+import uk.co.elysian.resources.SourceResource;
+import uk.co.elysian.views.MultiLocationViewBundle;
 
 import java.util.Map;
 
@@ -32,17 +34,13 @@ public class DropwizardViewsApplication extends Application<DropwizardViewsConfi
 	@Override
 	public void initialize(Bootstrap<DropwizardViewsConfiguration> bootstrap) {
 		// Add the views bundle, with override to pass optional additional config
-		bootstrap.addBundle(new ViewBundle<DropwizardViewsConfiguration>() {
-			@Override
-			public Map<String, Map<String, String>> getViewConfiguration(DropwizardViewsConfiguration config) {
-				return config.getViews().getRenderers();
-			}
-		});
+		bootstrap.addBundle(new MultiLocationViewBundle<>());
 	}
 
 	@Override
 	public void run(DropwizardViewsConfiguration dropwizardViewsConfiguration, Environment environment) throws Exception {
 		environment.jersey().register(new IndexResource());
+		environment.jersey().register(new SourceResource());
 
 		environment.healthChecks().register("dummy", new DummyHealthCheck());
 	}

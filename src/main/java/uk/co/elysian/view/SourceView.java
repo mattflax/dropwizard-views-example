@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.elysian;
+package uk.co.elysian.view;
 
-import uk.co.elysian.config.MultiLocationViewConfiguration;
+import io.dropwizard.views.View;
 
 /**
- * Configuration class for DropWizard views example app.
- *
- * Created by mlp on 07/04/16.
+ * Created by mlp on 26/04/16.
  */
-public class DropwizardViewsConfiguration extends MultiLocationViewConfiguration {
+public class SourceView extends View {
+
+	public SourceView(String template) {
+		super(template);
+	}
 
 }
