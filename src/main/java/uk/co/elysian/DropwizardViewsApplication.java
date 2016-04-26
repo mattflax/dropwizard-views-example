@@ -35,7 +35,7 @@ public class DropwizardViewsApplication extends Application<DropwizardViewsConfi
 		bootstrap.addBundle(new ViewBundle<DropwizardViewsConfiguration>() {
 			@Override
 			public Map<String, Map<String, String>> getViewConfiguration(DropwizardViewsConfiguration config) {
-				return config.getViewRendererConfiguration();
+				return config.getViews().getRenderers();
 			}
 		});
 	}

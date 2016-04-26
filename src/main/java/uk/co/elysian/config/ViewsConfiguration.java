@@ -13,30 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.elysian;
+package uk.co.elysian.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.dropwizard.Configuration;
-import uk.co.elysian.config.ViewsConfiguration;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * Configuration class for DropWizard views example app.
+ * Configuration for the extended views bundle.
  *
- * Created by mlp on 07/04/16.
+ * Created by mlp on 21/04/16.
  */
-public class DropwizardViewsConfiguration extends Configuration {
+public class ViewsConfiguration {
 
-	@JsonProperty("views")
-	public ViewsConfiguration views;
+	@JsonProperty("renderers")
+	private Map<String, Map<String, String>> renderers = new HashMap<>();
 
-	public ViewsConfiguration getViews() {
-		return views;
+	@JsonProperty("templatePaths")
+	private List<String> templatePaths;
+
+
+	public Map<String, Map<String, String>> getRenderers() {
+		return renderers;
 	}
 
-	public void setViews(ViewsConfiguration views) {
-		this.views = views;
+	public void setRenderers(Map<String, Map<String, String>> renderers) {
+		this.renderers = renderers;
 	}
+
+	public List<String> getTemplatePaths() {
+		return templatePaths;
+	}
+
+	public void setTemplatePaths(List<String> templatePaths) {
+		this.templatePaths = templatePaths;
+	}
+
 }
