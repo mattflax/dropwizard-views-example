@@ -21,6 +21,7 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import uk.co.elysian.health.DummyHealthCheck;
 import uk.co.elysian.resources.IndexResource;
+import uk.co.elysian.resources.MustacheResource;
 import uk.co.elysian.resources.SourceResource;
 import uk.co.elysian.views.MultiLocationViewBundle;
 
@@ -41,6 +42,7 @@ public class DropwizardViewsApplication extends Application<DropwizardViewsConfi
 	public void run(DropwizardViewsConfiguration dropwizardViewsConfiguration, Environment environment) throws Exception {
 		environment.jersey().register(new IndexResource());
 		environment.jersey().register(new SourceResource());
+		environment.jersey().register(new MustacheResource());
 
 		environment.healthChecks().register("dummy", new DummyHealthCheck());
 	}

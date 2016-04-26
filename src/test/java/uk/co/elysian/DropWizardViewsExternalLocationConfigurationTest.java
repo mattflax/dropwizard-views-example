@@ -35,25 +35,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DropWizardViewsExternalLocationConfigurationTest {
 
 	static final String CONFIG_FILE = "config/external_location_config.yml";
-	static final String CHECK_STRING = "templates/freemarker/index.ftl";
-	static final String LOCATION = "/index.ftl";
+	static final String FREEMARKER_CHECK_STRING = "templates/freemarker/index.ftl";
+	static final String MUSTACHE_CHECK_STRING = "templates/mustache/page.mustache";
+	static final String FREEMARKER_LOCATION = "/index.ftl";
+	static final String MUSTACHE_LOCATION = "/page.mustache";
 
 	@ClassRule
 	public static final DropwizardAppRule<DropwizardViewsConfiguration> RULE =
 			new DropwizardAppRule<>(DropwizardViewsApplication.class, ResourceHelpers.resourceFilePath(CONFIG_FILE));
 
 	@Test
-	public void indexViewReturnedFromDefault() {
+	public void freemarkerPageReturned() {
 		Client client = new JerseyClientBuilder().build();
 
 		Response response = client.target(
-				String.format("http://localhost:%d/source?path=%s", RULE.getLocalPort(), LOCATION))
+				String.format("http://localhost:%d/source?path=%s", RULE.getLocalPort(), FREEMARKER_LOCATION))
 				.request()
 				.get();
 
 		String responseBody = response.readEntity(String.class);
 		assertThat(response.getStatus()).isEqualTo(200);
-		assertThat(responseBody).contains(CHECK_STRING);
+		assertThat(responseBody).contains(FREEMARKER_CHECK_STRING);
 
 		// Verify that regular index resource works
 		response = client.target(
@@ -63,7 +65,32 @@ public class DropWizardViewsExternalLocationConfigurationTest {
 
 		responseBody = response.readEntity(String.class);
 		assertThat(response.getStatus()).isEqualTo(200);
-		assertThat(responseBody).contains(DropWizardViewsBasicConfigurationTest.CHECK_STRING);
+		assertThat(responseBody).contains(DropWizardViewsBasicConfigurationTest.FREEMARKER_CHECK_STRING);
+
+	}
+
+	@Test
+	public void mustachePageReturned() {
+		Client client = new JerseyClientBuilder().build();
+
+		Response response = client.target(
+				String.format("http://localhost:%d/source?path=%s", RULE.getLocalPort(), MUSTACHE_LOCATION))
+				.request()
+				.get();
+
+		String responseBody = response.readEntity(String.class);
+		assertThat(response.getStatus()).isEqualTo(200);
+		assertThat(responseBody).contains(MUSTACHE_CHECK_STRING);
+
+		// Verify that regular index resource works
+		response = client.target(
+				String.format("http://localhost:%d/mustache", RULE.getLocalPort()))
+				.request()
+				.get();
+
+		responseBody = response.readEntity(String.class);
+		assertThat(response.getStatus()).isEqualTo(200);
+		assertThat(responseBody).contains(DropWizardViewsBasicConfigurationTest.MUSTACHE_CHECK_STRING);
 
 	}
 

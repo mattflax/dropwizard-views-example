@@ -18,9 +18,7 @@ package uk.co.elysian;
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit.DropwizardAppRule;
 import org.glassfish.jersey.client.JerseyClientBuilder;
-import org.junit.Before;
 import org.junit.ClassRule;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.ws.rs.client.Client;
@@ -37,14 +35,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DropWizardViewsBasicConfigurationTest {
 
 	static final String CONFIG_FILE = "config/basic_config.yml";
-	static final String CHECK_STRING = "uk.co.elysian.view.index.ftl";
+	static final String FREEMARKER_CHECK_STRING = "uk.co.elysian.view.index.ftl";
+	static final String MUSTACHE_CHECK_STRING = "uk.co.elysian.view.page.mustache";
 
 	@ClassRule
 	public static final DropwizardAppRule<DropwizardViewsConfiguration> RULE =
 			new DropwizardAppRule<>(DropwizardViewsApplication.class, ResourceHelpers.resourceFilePath(CONFIG_FILE));
 
 	@Test
-	public void indexViewReturnedFromDefault() {
+	public void freemarkerViewReturnedFromDefault() {
 		Client client = new JerseyClientBuilder().build();
 
 		Response response = client.target(
@@ -54,7 +53,21 @@ public class DropWizardViewsBasicConfigurationTest {
 
 		assertThat(response.getStatus()).isEqualTo(200);
 		String responseBody = response.readEntity(String.class);
-		assertThat(responseBody).contains(CHECK_STRING);
+		assertThat(responseBody).contains(FREEMARKER_CHECK_STRING);
+	}
+
+	@Test
+	public void mustacheViewReturnedFromDefault() {
+		Client client = new JerseyClientBuilder().build();
+
+		Response response = client.target(
+				String.format("http://localhost:%d/mustache", RULE.getLocalPort()))
+				.request()
+				.get();
+
+		assertThat(response.getStatus()).isEqualTo(200);
+		String responseBody = response.readEntity(String.class);
+		assertThat(responseBody).contains(MUSTACHE_CHECK_STRING);
 	}
 
 }

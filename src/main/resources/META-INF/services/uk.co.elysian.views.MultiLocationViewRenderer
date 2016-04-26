@@ -1,1 +1,2 @@
 uk.co.elysian.views.freemarker.FreemarkerMultiLocationViewRenderer
+io.dropwizard.views.mustache.MustacheMultiLocationViewRenderer

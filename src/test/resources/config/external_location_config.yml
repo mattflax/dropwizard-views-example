@@ -11,4 +11,5 @@ views:
 
   templatePaths:
     - templates/freemarker
+    - templates/mustache
     - classpath
