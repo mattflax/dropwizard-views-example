@@ -38,7 +38,10 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * Multi-location variant of the Mustache View Renderer.
+ * Multi-location variant of the Mustache View Renderer. This is in the
+ * {@code io.dropwizard.views.mustache} package so it can use the
+ * {@link PerClassMustacheResolver}, which is package private (but
+ * useful!).
  *
  * Created by mlp on 26/04/16.
  */

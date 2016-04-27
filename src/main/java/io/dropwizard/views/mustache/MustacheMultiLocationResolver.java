@@ -21,6 +21,8 @@ import java.io.Reader;
 import java.util.Set;
 
 /**
+ * Multi-location resolver for Mustache.
+ *
  * Created by mlp on 26/04/16.
  */
 public class MustacheMultiLocationResolver implements MustacheResolver {
