@@ -1,0 +1,31 @@
+# Basic server configuration
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+
+# Additional configuration for the external views.
+views:
+
+  # Details of the paths which should be used to search for templates.
+  # This is *optional* - if not supplied, the default (classpath) will be
+  # used to find templates.
+  # Paths will be searched in the given order, and should be absolute,
+  # with the exception of the "classpath" option, which represents the
+  # default location (ie. within your compiled jar file).
+  # *Note* that "classpath" is not included by default - if missing, templates
+  # inside your jar file will not be found.
+  templatePaths:
+    - /data/templates/freemarker
+    - /data/templates/mustache
+    - classpath
+
+  # Renderer-specific configuration. These should be referenced by file
+  # suffix, as indicated in the DropWizard Views manual page.
+  renderers:
+    .ftl:
+      # Freemarker configuration
